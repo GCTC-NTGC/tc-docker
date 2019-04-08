@@ -1,30 +1,92 @@
 
 # TalentCloud docker integration
 
-Run and develop with just git and docker-compose.  Tested on Linux, Mac and Windows.
+Run and develop with just git and docker installed on your system.  Tested on Linux, Mac and Windows.
 
 ## Run the stack
 
-To get started, clone the TalentCloud repo to this directory, 
-then build and run using docker-compose.
+To get started, clone the TalentCloud repo to this directory. 
+
+#### HTTPS
+```
+$ git clone  https://github.com/GCTC-NTGC/TalentCloud.git
+```
+
+#### SSH
+```
+$ git clone git@github.com:GCTC-NTGC/TalentCloud.git
+```
+
+From this directory run:
 
 ```
-$ git clone --single-branch -b dev https://github.com/GCTC-NTGC/TalentCloud.git 
-$ docker-compose build 
+$ docker-compose build
 $ docker-compose up
 ```
 
+### Default Environment
 
-Note a single branch deploy may not be suitable for ongoing development; use a regular `git clone` in that case.
+You can setup talent cloud in various ways by editing the `.env` the following instructions are for if you are using the default environment configuration.
 
-Make a hosts entry for talent.local.ca that points to localhost, 
-you should then be able to access the application at https://talent.local.ca/ 
+Make a hosts entry for talent.test that points to localhost, 
+you should then be able to access the application at https://talent.test/ 
 (you will need to accept the self-signed certificate).
 
-Once this is all set up, development commands can be run from the host system in the running talentcloud-op container. 
-First, retrieve the container ID using `docker ps`, 
-then use commands like this: `docker exec -it (talentcloud-op-id) make <command>`, 
-where command is from [op/Makefile](the Makefile).
+## Useful Docker Commands
+
+Build your containers
+```
+$ docker-compose build
+```
+
+See status of containers
+```
+$ docker ps
+```
+
+Start your containers
+```
+$ docker-compose up
+```
+
+Stop your containers
+```
+$ docker-compose down
+```
+
+Run a command from your primary docker container
+```
+docker exec -it talentcloud-op <command>
+```
+
+Useful commands
+```
+docker exec -it talentcloud-op npm install
+docker exec -it talentcloud-op npm run dev
+docker exec -it talentcloud-op make npm-dev
+```
+
+Get shell access to the primary container
+```
+docker exec -it talentcloud-op sh
+```
+
+Restart Docker (Windows and OSX)
+```
+docker-machine restart
+```
+
+Restart Docker (Linux)
+```
+sudo service docker restart
+```
+
+Purge all stopped containers
+```
+docker system prune -a
+```
+
+
 
 ## Components
 
